@@ -1,0 +1,38 @@
+using System;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
+
+// Read UTF-16 paths with the Windows Shell. WScript.Shell uses the active ANSI
+// code page and can turn Vietnamese characters into '?' during QA.
+public static class PixelBatchShortcutReader
+{
+    [ComImport, Guid("00021401-0000-0000-C000-000000000046")]
+    private class ShellLink { }
+
+    [ComImport, Guid("000214F9-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    private interface IShellLinkW
+    {
+        void GetPath([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder path, int size, IntPtr data, uint flags);
+        void GetIDList(out IntPtr idList);
+        void SetIDList(IntPtr idList);
+        void GetDescription([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder text, int size);
+        void SetDescription([MarshalAs(UnmanagedType.LPWStr)] string text);
+        void GetWorkingDirectory([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder path, int size);
+    }
+
+    public static string[] Read(string path)
+    {
+        object link = new ShellLink();
+        try
+        {
+            ((IPersistFile)link).Load(path, 0);
+            var target = new StringBuilder(32768);
+            var working = new StringBuilder(32768);
+            ((IShellLinkW)link).GetPath(target, target.Capacity, IntPtr.Zero, 4);
+            ((IShellLinkW)link).GetWorkingDirectory(working, working.Capacity);
+            return new[] { target.ToString(), working.ToString() };
+        }
+        finally { Marshal.FinalReleaseComObject(link); }
+    }
+}

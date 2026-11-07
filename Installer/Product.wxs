@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?ifdef TestIdentity ?>
+  <?define DesktopDir="QaDesktopFolder" ?>
+  <?else ?>
+  <?define DesktopDir="DesktopFolder" ?>
+  <?endif ?>
+  <Product Id="$(var.ProductCode)" Name="$(var.AppName)" Language="1033" Version="$(var.Version)" Manufacturer="PixelBatch" UpgradeCode="$(var.UpgradeCode)">
+    <Package InstallerVersion="500" Compressed="yes" InstallScope="perUser" InstallPrivileges="limited" Platform="x64" Description="PixelBatch — Batch image tools" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of PixelBatch is already installed." Schedule="afterInstallInitialize" />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="mszip" />
+    <Condition Message="PixelBatch requires 64-bit Windows 10 or Windows 11.">Installed OR VersionNT64</Condition>
+    <Property Id="ARPPRODUCTICON" Value="PixelBatchIcon" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <Icon Id="PixelBatchIcon" SourceFile="$(var.ProjectRoot)\Assets\pixelbatch.ico" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="LocalAppDataFolder">
+        <Directory Id="UserProgramsFolder" Name="Programs">
+          <Directory Id="INSTALLFOLDER" Name="$(var.AppName)">
+            <Directory Id="LicenseFolder" Name="Licenses" />
+            <?ifdef TestIdentity ?>
+            <Directory Id="QaShortcuts" Name="QA-Shortcuts">
+              <Directory Id="QaDesktopFolder" Name="Desktop" />
+              <Directory Id="QaProgramMenuFolder" Name="StartMenu"><Directory Id="AppMenuFolder" Name="$(var.AppName)" /></Directory>
+            </Directory>
+            <?endif ?>
+          </Directory>
+        </Directory>
+      </Directory>
+      <?ifndef TestIdentity ?>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <Directory Id="ProgramMenuFolder"><Directory Id="AppMenuFolder" Name="$(var.AppName)" /></Directory>
+      <?endif ?>
+    </Directory>
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="AppShortcuts" Guid="*" Win64="yes">
+        <Shortcut Id="StartMenuShortcut" Directory="AppMenuFolder" Name="$(var.AppName)" Target="[INSTALLFOLDER]PixelBatch.exe" WorkingDirectory="INSTALLFOLDER" Icon="PixelBatchIcon" Description="Compress, resize and watermark images in batches" />
+        <Shortcut Id="DesktopShortcut" Directory="$(var.DesktopDir)" Name="$(var.AppName)" Target="[INSTALLFOLDER]PixelBatch.exe" WorkingDirectory="INSTALLFOLDER" Icon="PixelBatchIcon" Description="PixelBatch batch image tools" />
+        <RemoveFolder Id="RemoveAppMenu" Directory="AppMenuFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveAppDirectory" Directory="INSTALLFOLDER" On="uninstall" />
+        <RemoveFolder Id="RemoveLicenseDirectory" Directory="LicenseFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveEmptyProgramsDirectory" Directory="UserProgramsFolder" On="uninstall" />
+        <?ifdef TestIdentity ?>
+        <RemoveFolder Id="RemoveQaDesktop" Directory="QaDesktopFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveQaMenu" Directory="QaProgramMenuFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveQaRoot" Directory="QaShortcuts" On="uninstall" />
+        <?endif ?>
+        <RegistryValue Root="HKCU" Key="Software\$(var.RegistryName)\Installer" Name="Shortcuts" Type="integer" Value="1" KeyPath="yes" />
+        <RegistryValue Root="HKCU" Key="Software\$(var.RegistryName)\Installer" Name="InstallFolder" Type="string" Value="[INSTALLFOLDER]" />
+      </Component>
+    </DirectoryRef>
+    <Feature Id="Complete" Title="PixelBatch" Level="1" Absent="disallow">
+      <ComponentGroupRef Id="ApplicationFiles" />
+      <ComponentRef Id="AppShortcuts" />
+    </Feature>
+    <UIRef Id="WixUI_InstallDir" />
+    <UI>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">NOT Installed</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
+    </UI>
+  </Product>
+</Wix>

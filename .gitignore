@@ -1,0 +1,12 @@
+bin/
+obj/
+dist/
+qa/
+Checks/bin/
+Checks/obj/
+.vs/
+*.user
+PixelBatch-Windows-*.zip
+.tools/
+PixelBatch-Setup-*.exe
+PixelBatch-*.msi

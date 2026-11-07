@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Bundle Name="$(var.AppName)" Version="$(var.Version)" Manufacturer="PixelBatch" UpgradeCode="$(var.BundleUpgradeCode)" IconSourceFile="$(var.ProjectRoot)\Assets\pixelbatch.ico" DisableModify="yes">
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
+      <bal:WixStandardBootstrapperApplication LicenseUrl="" ThemeFile="$(var.ProjectRoot)\Installer\Theme.xml" LocalizationFile="$(var.ProjectRoot)\Installer\Theme.wxl" SuppressOptionsUI="no" ShowVersion="yes" LaunchTarget="[InstallFolder]\PixelBatch.exe" LaunchWorkingFolder="[InstallFolder]" />
+    </BootstrapperApplicationRef>
+    <Variable Name="InstallFolder" Type="string" Value="[LocalAppDataFolder]Programs\$(var.AppName)" Persisted="yes" bal:Overridable="yes" />
+    <util:RegistrySearch Id="HasExistingInstallFolder" Root="HKCU" Key="Software\$(var.RegistryName)\Installer" Value="InstallFolder" Variable="HasInstallFolder" Win64="yes" Result="exists" />
+    <util:RegistrySearch Id="ExistingInstallFolder" After="HasExistingInstallFolder" Condition="HasInstallFolder = 1" Root="HKCU" Key="Software\$(var.RegistryName)\Installer" Value="InstallFolder" Variable="InstallFolder" Win64="yes" Result="value" />
+    <bal:Condition Message="PixelBatch cần Windows 10 hoặc Windows 11 bản 64-bit.">VersionNT64 &gt;= v10.0</bal:Condition>
+    <Chain>
+      <MsiPackage Id="PixelBatchApp" SourceFile="$(var.MsiPath)" DisplayInternalUI="no" Visible="no" Compressed="yes">
+        <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]" />
+      </MsiPackage>
+    </Chain>
+  </Bundle>
+</Wix>

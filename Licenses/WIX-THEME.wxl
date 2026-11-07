@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) .NET Foundation and contributors. All rights reserved. Licensed under the Microsoft Reciprocal License. See ../Licenses/WIX-LICENSE.txt. -->
+<!-- Modified for PixelBatch: Vietnamese translations and setup guidance. -->
+<WixLocalization Culture="vi-vn" Language="1066" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="Caption">Cài đặt [WixBundleName]</String>
+  <String Id="Title">[WixBundleName]</String>
+  <String Id="InstallHeader">Chào mừng bạn</String>
+  <String Id="InstallMessage">Nén, đổi kích thước và watermark ảnh hàng loạt.
+
+Bấm Cài đặt để bắt đầu. Vào Tùy chọn nếu muốn đổi nơi cài.</String>
+  <String Id="ShortcutsMessage">Bộ cài tạo biểu tượng trên Desktop và trong Start menu.
+App hoạt động ngoại tuyến, không cần cài thêm .NET.</String>
+  <String Id="InstallVersion">Phiên bản [WixBundleVersion]</String>
+  <String Id="ConfirmCancelMessage">Bạn muốn dừng cài đặt?</String>
+  <String Id="ExecuteUpgradeRelatedBundleMessage">Phiên bản trước</String>
+  <String Id="HelpHeader">Trợ giúp cài đặt</String>
+  <String Id="HelpText">/install | /repair | /uninstall: cài, sửa hoặc gỡ app.
+/quiet: chạy không hiện giao diện.
+/norestart: không tự khởi động lại.
+/log file.txt: lưu nhật ký.
+InstallFolder="đường dẫn": chọn nơi cài.</String>
+  <String Id="HelpCloseButton">Đóng</String>
+  <String Id="InstallLicenseLinkText">Điều khoản &lt;a href="#"&gt;sử dụng&lt;/a&gt;.</String>
+  <String Id="InstallAcceptCheckbox">Đồng ý điều khoản sử dụng</String>
+  <String Id="InstallOptionsButton">Tùy chọn</String>
+  <String Id="InstallInstallButton">Cài đặt</String>
+  <String Id="InstallCloseButton">Đóng</String>
+  <String Id="OptionsHeader">Tùy chọn cài đặt</String>
+  <String Id="OptionsLocationLabel">Thư mục cài:</String>
+  <String Id="OptionsBrowseButton">Chọn…</String>
+  <String Id="OptionsOkButton">Đồng ý</String>
+  <String Id="OptionsCancelButton">Quay lại</String>
+  <String Id="ProgressHeader">Đang xử lý</String>
+  <String Id="ProgressLabel">Tiến trình:</String>
+  <String Id="OverallProgressPackageText">Đang chuẩn bị…</String>
+  <String Id="ProgressCancelButton">Dừng</String>
+  <String Id="ModifyHeader">PixelBatch đã được cài</String>
+  <String Id="ModifyRepairButton">Sửa lại</String>
+  <String Id="ModifyUninstallButton">Gỡ cài đặt</String>
+  <String Id="ModifyCloseButton">Đóng</String>
+  <String Id="SuccessRepairHeader">Đã sửa xong</String>
+  <String Id="SuccessUninstallHeader">Đã gỡ cài đặt</String>
+  <String Id="SuccessInstallHeader">Cài đặt hoàn tất</String>
+  <String Id="SuccessHeader">Đã hoàn tất</String>
+  <String Id="SuccessLaunchButton">Mở app</String>
+  <String Id="SuccessRestartText">Cần khởi động lại máy để hoàn tất thay đổi.</String>
+  <String Id="SuccessRestartButton">Khởi động lại</String>
+  <String Id="SuccessCloseButton">Đóng</String>
+  <String Id="FailureHeader">Chưa hoàn tất</String>
+  <String Id="FailureInstallHeader">Chưa cài đặt được</String>
+  <String Id="FailureUninstallHeader">Chưa gỡ cài đặt được</String>
+  <String Id="FailureRepairHeader">Chưa sửa được</String>
+  <String Id="FailureHyperlinkLogText">Có lỗi trong quá trình xử lý. Xem &lt;a href="#"&gt;nhật ký&lt;/a&gt; để biết chi tiết rồi thử lại.</String>
+  <String Id="FailureRestartText">Cần khởi động lại máy để hoàn tất khôi phục.</String>
+  <String Id="FailureRestartButton">Khởi động lại</String>
+  <String Id="FailureCloseButton">Đóng</String>
+  <String Id="FilesInUseHeader">App đang chạy</String>
+  <String Id="FilesInUseLabel">Các app sau đang dùng tệp cần cập nhật:</String>
+  <String Id="FilesInUseCloseRadioButton">Đóng app rồi thử tiếp.</String>
+  <String Id="FilesInUseDontCloseRadioButton">Giữ app đang mở; có thể cần khởi động lại máy.</String>
+  <String Id="FilesInUseOkButton">Tiếp tục</String>
+  <String Id="FilesInUseCancelButton">Dừng</String>
+  <String Id="ErrorFailNoActionReboot">Cần khởi động lại máy trước khi tiếp tục.</String>
+</WixLocalization>

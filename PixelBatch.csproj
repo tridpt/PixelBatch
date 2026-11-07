@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>PixelBatch</AssemblyName>
+    <RootNamespace>PixelBatch</RootNamespace>
+    <Version>0.6.0</Version>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/pixelbatch.ico</ApplicationIcon>
+    <Description>Công cụ xử lý ảnh hàng loạt, hoàn toàn trên thiết bị.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="4.153.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="4.153.1" />
+    <Compile Remove="Checks/**/*.cs" />
+  </ItemGroup>
+</Project>
